@@ -1,0 +1,133 @@
+public class Club
+    attribut
+        private Manager magager
+        private Coach coach
+        private ArrayList<Joueur> remplacant
+        private ArraList<Attaqueur> attaqueurs
+        private ArraList<Defenseur> defenseurs
+        private Gardien gardien
+        private Match  match
+        private double plafondSalaire // en million
+        private double tresorie // cash en million, faillite si tresorie <= 0
+    méthode
+        public boolean budget throws DepassementPlafonSalaireException
+            avant la promotion, verifie si  le salaire total est plus grand que le plafondSalaire
+                Si oui, throw new DepassementBudgetException
+                sinon, continue
+            catch : on prend Joueur moins compétent
+        public void recrutement(int type)
+            créer une instance et l'ajoute dans la liste correspondant
+            0: coach
+            1: attaquer
+            2: defenseur
+            3: gardien
+            4: joueur
+        public void remplacement
+            Remplacer un joueur par un autre 
+            Enregistrement  dans l'attribut  correspondant du Club 
+        public void promotion 
+            trouve un joueur dans le remplacant en le nommant joueur principal
+            on peut créer des liste temporaire
+        public void evaluer
+            voir si tout le monde (sauf manager) est compétent
+                non compétent :
+                    joueur, coach : evaluer renvoie false
+            si oui, on le garde
+            sinon, on l'envoie
+        public void mettreAJouer
+            renvoie les joueur : age > 30
+            evaluer
+            promotion
+            recrutement des remplacants
+        public void participerAuMatch
+            comparer les données du match et la somme de capacite de joueur principaux
+            si ce nombre du matche est plus petit, on gagner; sinon on perd
+                gagné : on prend le prime
+            en tout cas on paie le salaire de tout le monde
+        public String toString
+public class Match (singleton, sans trop se prolonger sur ça)
+    https://fr.wikipedia.org/wiki/Singleton_(patron_de_conception)#Java
+    attribut
+        private static Match  match
+        private double prime // en milion, l'argent que le club peut gagner si la 
+        private double capacite_attaque
+        private double capacite_defense
+    méthode
+        private Match()
+        public final static Match getMatch()
+        other getters and setters
+            e.g. public double getPrime() return prime
+            e.g. public double setPrime(double prime) this.prime = prime
+public abstract class Personne
+    attribut
+        protected String nom // tirer au hazard par Outil.lettreAleatoire() 3 fois
+        protected salaire //en million
+        public static salaireDefaut
+    méthode
+        protected Personne(double salaire) //Constructeur
+        protected Personne() //Constructeur par défaut
+    méthode abstraite
+        public void sePresenter
+    héritage
+        public class Manager extends Personne // qui ne rien fait, juste pour satisfaire la demande
+            attribut
+                public static final salaireDefaut // plus grand que salaire defaut d'une Personne
+            méthode
+                @override sePresenter
+        public class Coach extends Personne implements  Evaluable
+            attribut
+                public static final double augmenterAttaqueDefaut, augmenterDefenseDefaut, capaciteDeclinDefaut // des valeurs par défaut
+                private double augmenterAttaque
+                private double augmenterDefense
+                private double capaciteDeclin
+            methode
+                public Coach(double augmenterAttaque, double augmenterDefense, double capaciteDeclin) // Constructeur
+                public Coach() //constructeur par défaut
+                public void declin
+                @override public boolean evaluer
+                @override public void decliner
+                getters and setters
+        public class Joueur implements Evaluable
+            attribut
+                protected double capaciteAttaque
+                protected double capaciteDefense
+                protected int age
+            méthode
+                public Joueur(double capaciteAttaque, double capaciteDefense, int age) // constructeur
+                public Joueur(Joueur j) // construction par copie
+                public Joueur() // constructeur par défaut utilisant des donnée aleatoire
+                @override public boolean evaluer
+                @override public void decliner
+                    age++ et capacite--
+                public void augmenterCapacite
+                    grace au coach
+            héritage
+                public class Attaqueur extends Joueur
+                    attribut
+                        public static int tauxDeSalaire
+                            ici, on modifie le salaire
+                            salaire  = capaciteAttaque * tauxDeSalaire
+                        public static double competenceSeuil
+                            s'il ne dépasse pas, il est incapable
+                    méthode
+                        Attaqueur(double capaciteAttaque, double capaciteDefense, int age) // constructeur
+                        constructeur par défaut et par copie
+                        @override sePresenter
+                        @override seDecliner
+                Defenseur, Gardien suivent la même structure, sauf que le taux de salaire varie
+public class Outil // Que des méthodes statiques
+    attribut
+    méthode statique
+        public double aleatoireDoubleEntre(double min, double max)
+        public int aleatoireIntEntre(int min, int max)
+        public String aleatoireLettre()
+        public boolean avoirLieuSeuil(double seuil) // tire un nombre aleatoire entre 0 et 1, si plus grand que seuil, return true
+public interface Evaluable
+    méthode
+        public boolean evaluer
+            Voir si cette personne est compétente (la capacite depasse un certain seuil)
+            Si oui, passe
+            Sinon, return false pour son remplacement ulterieur
+        public void decliner
+            lors de vieillissement, les capacites d'un joueur ou d'un coach declinent , ce qui lui rend moins capable et à la fin il doit être remplacé par un nouveau
+public classe DepassementPlafonSalaireException extends Exception

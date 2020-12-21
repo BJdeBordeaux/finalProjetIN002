@@ -3,7 +3,29 @@
  * On definit le salaire quand on etend cette classe
 */
 public abstract class Personne {
-    protected String nom;
-    protected double salaire;
+
+    // attributs
+
+    protected String nom; // tirer au hazard par Outil.lettreAleatoire() 3 fois
+    protected double salaire; //en million
+    public static double salaireDefaut = 0;
+
+    // méthode
+
+    protected Personne(double salaire) //Constructeur
+    {
+        this.nom = Outil.aleatoireChaine();
+        this.salaire = salaire;
+    }
+
+    protected Personne() //Constructeur par défaut
+    {
+        this(salaireDefaut);
+        this.nom = Outil.aleatoireChaine();
+    }
+
+    // méthode abstraite
+    
+    public abstract void sePresenter();
 
 }
