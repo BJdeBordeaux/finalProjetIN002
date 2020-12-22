@@ -10,10 +10,24 @@ public class Manager extends Personne{
     
     //méthode
 
+    public Manager(double salaire) {
+        super(salaire);
+    }
+
+    public Manager() {
+        super(salaireDefaut);
+    }
+
+
 
     public void sePresenter()
     {
-        // a finir
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Manager " + nom;
     }
 
 }
