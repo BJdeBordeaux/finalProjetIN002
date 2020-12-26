@@ -1,4 +1,4 @@
-public class Defenseur {
+public class Defenseur extends Joueur{
         
     // attribut
 
@@ -12,19 +12,58 @@ public class Defenseur {
     public static double competenceSeuil = 1;
     
     //méthode
+    /***
+     * constructeur usuelle
+     * @param capaciteAttaque
+     * @param capaciteDefense
+     * @param age
+    */
     Defenseur(double capaciteAttaque, double capaciteDefense, int age) // constructeur
     {
-
+        super(salaireDefaut * tauxDeSalaire, capaciteAttaque, capaciteDefense, age);
     }
-    
-    // constructeur par défaut et par copie
 
-    
-    public void sePresenter(){
+    /***
+     * constructeur avec salaire specifie
+     * @param salaireTotal
+     * @param capaciteAttaque
+     * @param capaciteDefense
+     * @param age
+    */
+    Defenseur(double salaireTotal, double capaciteAttaque, double capaciteDefense, int age) // constructeur
+    {
+        super(salaireTotal, capaciteAttaque, capaciteDefense, age);
+    }
+
+    /***
+     * constructeur par copie
+     * @param joueur
+    */
+    Defenseur(Joueur joueur)
+    {
+        super(joueur.salaire*tauxDeSalaire, joueur.capaciteAttaque, joueur.capaciteDefense, joueur.age);
+    }
+
+    /**
+     * constructeur par defaut
+    */
+    Defenseur()
+    {
         // a finir
     }
     
-    public void seDecliner(){
-        // a finir
+
+    public void sePresenter() {
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public boolean evaluer() {
+        return this.capaciteDefense >= seuilCapaciteDefense;
+    }
+
+    @Override
+    public String toString() {
+        return "Defenseur " + nom + ", " + age + " ans.";
     }
 }
