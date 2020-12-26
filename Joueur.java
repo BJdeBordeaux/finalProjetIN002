@@ -2,7 +2,7 @@
  * Un joueur peut se categorise en attaqueur, defenseur et gardien (héritage) Si
  * non il est un remplacant
  */
-public abstract class Joueur extends Personne implements Evaluable {
+public class Joueur extends Personne implements Evaluable {
 
     // attribut
     protected static int seuilAge = 1; // si un joueur depasse cet age, il se decline

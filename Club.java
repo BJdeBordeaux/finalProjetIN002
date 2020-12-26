@@ -3,14 +3,26 @@ import java.util.ArrayList;
 
 public class Club {
     private Manager manager;
+    
     private Coach coach;
+    
+    private static int nombreRemplacantMax = 7;
     private ArrayList<Joueur> remplacants;
+
+    private static int nombreAttaqueurMax = 4;
     private ArrayList<Attaqueur> attaqueurs;
+    
+    private static int nombreDefenseurMax = 6;
     private ArrayList<Defenseur> defenseurs;
+
     private Gardien gardien;
+
     private Match match;
+    
     private int somme;
+    
     private double plafondSalaire;
+    
     private double tresorie;
 
     /**
@@ -23,17 +35,44 @@ public class Club {
         // a finir
         return true;
     }
-    
-    /**
-    *créer une instance et l'ajoute dans la liste correspondant
-    *    0: coach
-    *    1: attaquer
-    *    2: defenseur
-    *    3: gardien
-    *    4: joueur
+
+    /***
+     *créer une instance et l'ajoute dans la liste correspondant
+     *    0: coach
+     *    1: attaquer
+     *    2: defenseur
+     *    3: gardien
+     *    4: joueur
+     * @param type
     */
     public void recrutement(int type){
-        // a finir
+        switch (type) {
+            case 0:
+                if(coach == null){
+                    coach = new Coach();
+                }
+                break;
+            case 1:
+                if(attaqueurs.size() < nombreAttaqueurMax){
+                    attaqueurs.add(new Attaqueur());
+                }
+                break;
+            case 2:
+                if(defenseurs.size() < nombreDefenseurMax){
+                    defenseurs.add(new Defenseur());
+                }
+                break;
+            case 3:
+                if(gardien == null){
+                    gardien = new Gardien();
+                }
+                break;
+            default:
+                if(remplacants.size() < nombreRemplacantMax){
+                    remplacants.add(new Joueur());
+                }
+                break;
+        }
     }
 
     /**
@@ -87,8 +126,28 @@ public class Club {
         
     }
         
-    public String toString(){
-        // a finir
-        return "";
+    public void sePresenter() {
+        System.out.println(this.toString());
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += "Club de football\n";
+        str += coach.toString() + "\n";
+        str += manager.toString() + "\n";
+        for(Attaqueur attaqueur : attaqueurs){
+            str += attaqueur.toString() + "\n";
+        }
+        for(Defenseur defenseur : defenseurs){
+            str += defenseur.toString() + "\n";
+        }
+        str += gardien.toString() + "\n";
+        for (Joueur joueur : remplacants) {
+            str += joueur.toString() + "\n";
+        }
+        return str;
+    }
+
+
 }
