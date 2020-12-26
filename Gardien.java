@@ -13,12 +13,47 @@ public class Gardien extends Joueur {
     public static double competenceSeuil = 1;
 
     // méthode
+
+    /***
+     * constructeur usuelle
+     * @param capaciteAttaque
+     * @param capaciteDefense
+     * @param age
+    */
     Gardien(double capaciteAttaque, double capaciteDefense, int age) // constructeur
     {
         super(salaireDefaut * tauxDeSalaire, capaciteAttaque, capaciteDefense, age);
     }
 
-    // constructeur par défaut et par copie a finir
+    /***
+     * constructeur avec salaire specifie
+     * @param salaireTotal
+     * @param capaciteAttaque
+     * @param capaciteDefense
+     * @param age
+    */
+    Gardien(double salaireTotal, double capaciteAttaque, double capaciteDefense, int age) // constructeur
+    {
+        super(salaireTotal, capaciteAttaque, capaciteDefense, age);
+    }
+
+    /***
+     * constructeur par copie
+     * @param joueur
+    */
+    Gardien(Joueur joueur)
+    {
+        super(joueur.salaire*tauxDeSalaire, joueur.capaciteAttaque, joueur.capaciteDefense, joueur.age);
+    }
+
+    /**
+     * constructeur par defaut
+    */
+    Gardien()
+    {
+        // a finir
+    }
+    
 
     public void sePresenter() {
         System.out.println(this.toString());
