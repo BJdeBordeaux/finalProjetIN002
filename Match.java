@@ -4,66 +4,71 @@
 */
 public class Match {
     private static Match  match;
-    private double prime; // en milion, l'argent que le club peut gagner
-    private double capacite_attaque;
-    private double capacite_defense;
+    private double capaciteNotre;
+    private double captaciteAdversaire;
+    private int nbVictoire;
+    private int nbDefaite;
+    
 
     /**
-     * @param p le prime
-     * @param ca capacite_attaque
-     * @param cd capacite_defense 
+     * creer un match a partir de capacite de tout equipe
+     * @param capaciteNotre
     */
-    private Match(double p, double ca, double cd){
-        Match.match.prime = p;
-        Match.match.capacite_attaque = ca;
-        Match.match.capacite_defense = cd;
-    }
-    
-    private Match(){
-        // a finir
-        // construction par defaut ou des chiffres aleatoires
+    private Match(double capaciteNotre){
+        Match.match.capaciteNotre = capaciteNotre;
     }
 
     public final static Match getMatch(){
         if(match != null){
             return match;
         }else{
-            match = new Match();
-            return match;
+            System.out.println("L'equipe ne s'engage pas a aucun match.");
+            return null;
         }
     }
 
-    public final static Match getMatch(double p, double ca, double cd){
-        if(match != null){
-            return match;
-        }else{
-            match = new Match(p, ca, cd);
-            return match;
-        }
+    public final static Match getMatch(double capaciteNotre){
+        match = new Match(capaciteNotre);
+        return match;
     }
 
-    public double getPrime() {
-        return prime;
+    public void finirMatch() {
+        match = null;
     }
 
-    public void setPrime(double prime) {
-        this.prime = prime;
+
+    public double getCapaciteNotre() {
+        return capaciteNotre;
     }
 
-    public double getCapacite_attaque() {
-        return capacite_attaque;
+    public void setCapaciteNotre(double capaciteNotre) {
+        this.capaciteNotre = capaciteNotre;
     }
 
-    public void setCapacite_attaque(double capacite_attaque) {
-        this.capacite_attaque = capacite_attaque;
+    public double getCaptaciteAdversaire() {
+        return captaciteAdversaire;
     }
 
-    public double getCapacite_defense() {
-        return capacite_defense;
+    public void setCaptaciteAdversaire(double captaciteAdversaire) {
+        this.captaciteAdversaire = captaciteAdversaire;
     }
 
-    public void setCapacite_defense(double capacite_defense) {
-        this.capacite_defense = capacite_defense;
+    public int getNbVictoire() {
+        return nbVictoire;
     }
+
+    public void setNbVictoire(int nbVictoire) {
+        this.nbVictoire = nbVictoire;
+    }
+
+    public int getNbDefaite() {
+        return nbDefaite;
+    }
+
+    public void setNbDefaite(int nbDefaite) {
+        this.nbDefaite = nbDefaite;
+    }
+
+
 
 }

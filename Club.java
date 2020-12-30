@@ -20,6 +20,8 @@ public class Club {
     private Match match;
     
     private int somme;
+
+    private int annee;
     
     private double plafondSalaire;
     
@@ -107,6 +109,7 @@ public class Club {
     * renvoie les joueur : age > 30
     *    evaluer
     *    promotion
+    *    renouveller les contrats
     *    recrutement des remplacants
     */
     public void mettreAJouer(){

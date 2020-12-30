@@ -1,0 +1,22 @@
+
+int annee 
+int capacite = 0 ~ 100
+salaire = capacite * sla_ratio(=10000)
+contrat = if annee  = 4, reset contract, set salary,  //4 years, if somme > plafond raise execption, enlever joueur le capacite la plus haute, faire monter un remplacant(sla_ratio_sub), generate new remplacant , 
+
+
+les joueurs :
+genere des capacite de maniere aleatoire 
+
+match :
+genere une equipe avec des valeurs aleatoire : Math.random() * intervale + min
+
+victoire en fonction de capacite (voir si en fonction d'attaque et defense)
+si victoire $(10000) de benefice pour le club, victory number +1
+
+si defaite, defeat number +1
+
+a la fin d'une annee(80 match) , 
+si victory number > defeat number, capacite +=1+ (int) (victory number - defeat number)/coefv(10)
+
+si victory number < defeat number, capacite +=1+ (int) abs(victory number - defeat number)/coefd(20)
