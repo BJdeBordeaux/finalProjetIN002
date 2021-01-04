@@ -1,5 +1,5 @@
 /**
- * Exception declenche quand le salaire actuel va depasser le plafond
+ * Exception declenche quand le salaire va depasser le plafond
 */
 public class DepassementPlafondSalaireException extends Exception{
 

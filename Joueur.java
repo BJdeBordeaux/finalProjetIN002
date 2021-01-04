@@ -1,59 +1,66 @@
 /**
- * Un joueur peut se categorise en attaqueur, defenseur et gardien (héritage) Si
- * non il est un remplacant
+ * Un joueur est ce qui participe au match
  */
-public class Joueur extends Personne implements Evaluable {
+public class Joueur extends Personne implements Declinable {
 
     // attribut
-    protected static int seuilAge = 1; // si un joueur depasse cet age, il se decline
-    protected static int seuilCapaciteAttaque = 1; // si la capacite est moins que ce seuil, un joueur sera elimine
-    protected static int seuilCapaciteDefense = 1;
-    protected static int capaciteDeclin = 1; // la capacite qu'un joueur perd si son age depasse le seuil
-    protected static int salaireDefaut = 1;
-    protected double capaciteAttaque;
-    protected double capaciteDefense;
+    protected static int seuilAge = 32; // si un joueur depasse cet age, il se decline
+    protected static int capaciteDeclin = 3; // la capacite qu'un joueur perd si son age depasse le seuil
+    protected static int contratDefaut = 4; // la duree de contrat
+    
+    
+    protected static int ageDefaut = 19;
+    protected final static double COEFFSALAIRECAPACITE = 1.5;// si un joueur est cree a partir d'un remplacant, salaire = capacite*COEFFSALAIRECAPACITE
+
+
+
+    protected int capacite;
     protected int age;
+    protected int contrat;
+    private final static int MIN = 60;
+    private final static int MAX = 95;
 
     // méthode
 
-    public Joueur(double salaire, double capaciteAttaque, double capaciteDefense, int age) // constructeur
-    {
-        super(salaire);
-        this.capaciteAttaque = capaciteAttaque;
-        this.capaciteDefense = capaciteDefense;
+    /**
+    * constructeur a partir de capacite et age
+    */
+    public Joueur(int capacite, int age) {
+        super(capacite *COEFFSALAIRECAPACITE );
+        this.capacite = capacite;
         this.age = age;
+        this.contrat = contratDefaut;
+        
     }
 
-    public Joueur(double capaciteAttaque, double capaciteDefense, int age) // constructeur
+    /**
+    * constructeur par défaut utilisant des donnée aleatoire
+    */
+    public Joueur() 
     {
-        super(salaireDefaut);
-        this.capaciteAttaque = capaciteAttaque;
-        this.capaciteDefense = capaciteDefense;
-        this.age = age;
+        this(Outil.aleatoireIntEntre(MIN, MAX), ageDefaut);
+        this.contrat = contratDefaut;
     }
 
-    public Joueur() // constructeur par défaut utilisant des donnée aleatoire
-    {
-        // a finir
+    /**
+     * constructeur a partir d'un remplacant
+     */
+    public Joueur(Remplacant r) {
+        super(r.salaire*COEFFSALAIRECAPACITE, r.nom);
+        this.capacite = r.capacite;
+        this.age = r.age;
+        this.contrat = contratDefaut;
+        
     }
-
+    
     /**
      * construction par copie
      */
     public Joueur(Joueur j) {
         super(j.salaire);
-        this.capaciteAttaque = j.capaciteAttaque;
-        this.capaciteDefense = j.capaciteDefense;
+        this.capacite = j.capacite;
         this.age = j.age;
-    }
-
-    public boolean evaluer() {
-        if (capaciteAttaque < seuilCapaciteAttaque) {
-            return false;
-        } else if (capaciteDefense < seuilCapaciteDefense) {
-            return false;
-        }
-        return true;
+        this.contrat = contratDefaut;
     }
 
     /**
@@ -61,20 +68,22 @@ public class Joueur extends Personne implements Evaluable {
      */
     public void decliner() {
         age += 1;
+        contrat -= 1;
         if (age >= seuilAge) {
-            capaciteAttaque -= capaciteDeclin;
-            capaciteDefense -= capaciteDeclin;
+            capacite -= capaciteDeclin;
         }
     }
 
     /**
-     * grace au coach
+     * augmenter la capacite grace au coach
      */
     public void augmenterCapacite(Coach c) {
-        this.capaciteAttaque += c.getAugmenterAttaque();
-        this.capaciteDefense += c.getAugmenterDefense();
+        this.capacite += c.getCapacite();
     }
 
+    /**
+     * afficher des information pour l'utilisateur
+    */
     @Override
     public void sePresenter() {
         System.out.println(this.toString());
@@ -82,9 +91,69 @@ public class Joueur extends Personne implements Evaluable {
 
     @Override
     public String toString() {
-        return "Joueur " + nom + ", " + age + " ans.";
+        return "Joueur [nom=" + nom + ", age=" + age + ", capacite=" + capacite + ", contrat=" + contrat + ", salaire=" + salaire + "]\n";
     }
+
+    // getters and setters
     
+    public int getCapacite() {
+        return capacite;
+    }
 
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+        if(capacite >= 100){
+            capacite = 100;
+        }
+    }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getContrat() {
+        return contrat;
+    }
+
+    public void setContrat(int contrat) {
+        this.contrat = contrat;
+    }
+
+    public static int getSeuilAge() {
+        return seuilAge;
+    }
+
+    public static void setSeuilAge(int seuilAge) {
+        Joueur.seuilAge = seuilAge;
+    }
+
+    public static int getContratDefaut() {
+        return contratDefaut;
+    }
+
+    public static void setContratDefaut(int contratDefaut) {
+        Joueur.contratDefaut = contratDefaut;
+    }
+
+    public static int getAgeDefaut() {
+        return ageDefaut;
+    }
+
+    public static void setAgeDefaut(int ageDefaut) {
+        Joueur.ageDefaut = ageDefaut;
+    }
+
+    public boolean equals(Joueur joueurCmp){ 
+      if(this.capacite != joueurCmp.capacite || this.age != joueurCmp.age || this.contrat != joueurCmp.contrat)
+        return false;
+      return true;
+    }
+
+    public Joueur clone(){
+      return new Joueur(this);
+    }
 }

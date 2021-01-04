@@ -1,8 +1,16 @@
 class Main {
   public static void main(String[] args) {
-    // On fait le test dans cette classe
-    // Chaque fois on termine, assure que le main marche
-    // Sinon, commente des lignes
-    System.out.println("Java final project!");
+
+    Club clubSimu = new Club();
+    clubSimu.init();
+
+    try{
+      clubSimu.run(Integer.parseInt(args[0]));
+    }
+    catch(Exception e){
+      clubSimu.run();
+    }
+
+    System.out.println("Pour gerer le nombre d'annee a tourne, tapez comme 'java Main 16' pour une boucle de 16 annee.");
   }
 }

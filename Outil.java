@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 /**
  * Cette classe ne comprend que des methodes
- * 
+ * certaines sont des algorithme
 */
 public class Outil {
     
@@ -63,6 +65,57 @@ public class Outil {
     public static boolean avoirLieuSeuil(double seuil) 
     {
         return (Math.random() < seuil);
+    }
+
+    /***
+     * si victory number > defeat number, capacite +=1+ (int) (victory number - defeat number)/coefv(10)
+     * si victory number < defeat number, capacite +=1+ (int) abs(victory number - defeat number)/coefd(20)
+     * @param nbVictoire
+     * @param nbDefaite
+     * @return la difference de capacite a ajouter a la capacite originale
+    */
+    public static int capaciteDifference(int nbVictoire, int nbDefaite) {
+        if(nbVictoire > nbDefaite){
+            return 1 + (int) ((nbVictoire - nbDefaite)/10);
+        }else{
+            return 1 + (int) ((nbDefaite - nbVictoire)/20);
+        }
+    }
+
+    /***
+     * 
+     * @param remplacants
+     * @return remplacant le plus capable (une instance)
+    */
+    public static Remplacant remplacantLePlusCapable(ArrayList<Remplacant> remplacants) {
+        if(remplacants.size() == 0){
+            return null;
+        }
+        Remplacant capmax = remplacants.get(0);
+        for(Remplacant r : remplacants){
+            if (capmax.capacite < r.capacite) {
+                capmax = r;
+            }
+        }
+        return capmax;
+    }
+
+    /***
+     * 
+     * @param joueurs
+     * @return joueur le plus capable (une instance)
+    */
+    public static Joueur joueurLePlusCapable(ArrayList<Joueur> joueurs) {
+        if(joueurs.size() == 0){
+            return null;
+        }
+        Joueur capmax = joueurs.get(0);
+        for(Joueur j : joueurs){
+            if (capmax.capacite < j.capacite) {
+                capmax = j;
+            }
+        }
+        return capmax;
     }
 
 }
